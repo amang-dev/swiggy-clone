@@ -1,39 +1,56 @@
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import Shimer from "./Shimer";
+import ResCategory from "./ResCategory";
+import { useState} from "react";
 
 const RestaurantMenu = () => {
 
-    const { resid } = useParams()
+  const [showIndex, setShowIndex]= useState()
 
-    const resInfo = useRestaurantMenu(resid)
+  const { resid } = useParams();
+  const resInfo = useRestaurantMenu(resid);
 
-    if (resInfo === null) return <Shimer />;
+  if (resInfo === null) return <Shimer />;
 
+  const { name, costForTwoMessage, avgRating } =
+    resInfo?.cards[0]?.card?.card?.info;
+  // const { itemCards } = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
 
-    const { name, costForTwoMessage, avgRating } = resInfo?.cards[0]?.card?.card?.info;
-    console.log(resInfo);
+  //! console.log(resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards)
 
-    const { itemCards } = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
-    console.log(itemCards);
+  const categories =
+    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+  // console.log(categories);
 
-    return (
-        <div>
-            <div className="w-fit border-2 border-green-300 rounded-lg mx-auto my-5 flex justify-between">
-                <h1 className="font-medium text-xl bg-pink-200 px-8">{name}</h1>
-                <h2 className="px-10">Rating {avgRating}</h2>
-                <h3 className=" bg-pink-200 px-6">{costForTwoMessage}</h3>
-                {/* <h4>{cuisines.join(",")}</h4> */}
-            </div> 
-            <ul className="flex flex-wrap justify-center items-center">
-                {
-                    itemCards.map((item) => {
-                        return <li className="w-fit border-2 border-green-300 rounded-lg p-4 m-5 bg-green-100 font-medium"> {item.card.info.name} </li>
-                    })
-                }
-            </ul>
-        </div>
-    )
-}
+  return (
+    <div>
+      <div className="w-fit border-2 border-teal-300 rounded-lg mx-auto my-5 flex justify-between items-center">
+        <h1 className="font-medium text-xl bg-pink-200 px-2">{name}</h1>
+        <h2 className="px-10">
+          Rating <span className="font-bold">{avgRating}</span>
+        </h2>
+        <h3 className="text-xl bg-pink-200 px-6">{costForTwoMessage}</h3>
+      </div>
+
+      <div>
+        {categories.map((category, index) => {
+          return (
+            <ResCategory
+              key={category?.card?.card.title}
+              data={category?.card?.card}
+              showItem={index === showIndex ? true : false}
+              setShowIndex={index === showIndex ? ()=>{setShowIndex(-1)} : ()=>{setShowIndex(index)}}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 export default RestaurantMenu;

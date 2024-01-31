@@ -13,6 +13,7 @@
   "author": "aman gupta",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.11.13",
     "parcel": "^2.9.3",
     "postcss": "^8.4.31",
     "process": "^0.11.10",
@@ -21,7 +22,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.17.0"
+    "react-router-dom": "^6.21.3"
   },
   "browserslist": [
     "last 2 versions"
