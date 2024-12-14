@@ -2,7 +2,11 @@ import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
+<<<<<<< HEAD
 // import About from "./components/About"
+=======
+import About from "./components/About"
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurentMenu";
@@ -11,6 +15,10 @@ import userContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
+<<<<<<< HEAD
+=======
+import Footer from "./components/Footer";
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
@@ -31,6 +39,10 @@ const AppLayout = () => {
         <Header />
         <Outlet />
       </div>
+<<<<<<< HEAD
+=======
+      <Footer />
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
     </userContext.Provider>
     </Provider>
   );
@@ -47,10 +59,17 @@ const appRouter = createBrowserRouter([
         element: <Body />,
       },
 
+<<<<<<< HEAD
       // {
       //   path: "/about",
       //   element: <About />
       // },
+=======
+      {
+        path: "/about",
+        element: <About />
+      },
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
 
       {
         path: "/contact",

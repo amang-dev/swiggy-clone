@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { LOGO_URL } from "../utils/constant";
 // import { useEffect, useState, useContext } from "react";
 // import { Link } from "react-router-dom";
@@ -66,10 +67,16 @@ import { LOGO_URL } from "../utils/constant";
 import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+=======
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+import { MdShoppingCart } from "react-icons/md";
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
 const Header = () => {
+<<<<<<< HEAD
   const { loggedInUser } = useContext(UserContext);
   const [btnName, setBtnName] = useState("Login");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -117,10 +124,73 @@ const Header = () => {
         </ul>
       </div>
     </div>
+=======
+  const onlineStatus = useOnlineStatus();
+  const cartItems = useSelector((store) => store.cart.items);
+
+  return (
+    <header className="bg-white shadow-md border-b border-gray-200">
+      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <img
+            src="https://w7.pngwing.com/pngs/55/100/png-transparent-swiggy-hd-logo-thumbnail.png" // Replace with your logo URL or path
+            alt="Swiggy Clone Logo"
+            className="h-10 w-10"
+          />
+          <Link
+            to="/"
+            className="text-2xl font-bold text-gray-800 hover:text-orange-500"
+          >
+            Swiggy Clone
+          </Link>
+        </div>
+
+        <nav className="hidden md:flex items-center space-x-8">
+          <Link
+            to="/"
+            className="text-gray-600 hover:text-orange-500 transition-colors duration-300 font-bold"
+          >
+            Home
+          </Link>
+          <Link
+            to="/about"
+            className="text-gray-600 hover:text-orange-500 transition-colors duration-300 font-bold"
+          >
+            About
+          </Link>
+          <Link
+            to="/contact"
+            className="text-gray-600 hover:text-orange-500 transition-colors duration-300 font-bold"
+          >
+            Contact
+          </Link>
+
+          <Link className="text-gray-600 font-bold">
+            Online: {onlineStatus === true ? "✅" : "🔴"}
+          </Link>
+
+          <Link
+            to="/cart"
+            className="text-gray-600 hover:text-orange-500 transition-colors duration-300 font-bold flex items-center"
+          >
+            <MdShoppingCart /> Cart ({cartItems.length} Items)
+          </Link>
+        </nav>
+
+        <button
+          className="md:hidden border-2 border-gray-300 rounded-lg p-2 text-gray-600 hover:border-orange-500 hover:text-orange-500 transition-colors duration-300"
+          onClick={() => alert("Open Mobile Menu")}
+        >
+          <i className="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
   );
 };
 
 export default Header;
+<<<<<<< HEAD
 
 
 
@@ -129,3 +199,5 @@ export default Header;
 
 
 
+=======
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)

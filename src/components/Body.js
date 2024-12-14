@@ -1,5 +1,6 @@
 import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import Shimer from "./Shimer";
+<<<<<<< HEAD
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -13,6 +14,15 @@ const Body = () => {
 
   console.log(listOfRestaurants);
 
+=======
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+
+const Body = () => {
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredRestaurants, setFilterRestaurants] = useState([]);
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
   const [searchText, setSearchText] = useState("");
 
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
@@ -21,6 +31,7 @@ const Body = () => {
     fetchData();
   }, []);
 
+<<<<<<< HEAD
   const fetchData = async () => {
     try {
       const data = await fetch(
@@ -35,11 +46,63 @@ const Body = () => {
         setFilterRestaurants(restaurants);
       } else {
         console.error("Could not find restaurants in the JSON response:", json);
+=======
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://cors-anywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6279488&lng=77.2786205&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  //     );
+  //     const json = await response.json();
+
+  //     const restaurants =
+  //       json?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+
+  //     if (restaurants) {
+  //       setListOfRestaurants(restaurants);
+  //       setFilterRestaurants(restaurants);
+  //     } else {
+  //       console.error("Could not find restaurants in the JSON response:", json);
+
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://cors-anywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6279488&lng=77.2786205&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      );
+
+      if (response.ok) {
+        const json = await response.json();
+        let restaurants = null;
+
+        for (let i = 0; i < json?.data?.cards?.length; i++) {
+          const card = json?.data?.cards[i]?.card?.card;
+
+          if (card?.gridElements?.infoWithStyle?.restaurants) {
+            restaurants = card.gridElements.infoWithStyle.restaurants;
+            break; 
+          }
+        }
+
+        if (restaurants && restaurants.length > 0) {
+          setListOfRestaurants(restaurants);
+          setFilterRestaurants(restaurants);
+        } else {
+          throw new Error("No restaurants found in API response");
+        }
+      } else {
+        throw new Error("Failed to fetch data from Swiggy API");
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+<<<<<<< HEAD
   
 
   const onlineStatus = useOnlineStatus();
@@ -104,6 +167,61 @@ const Body = () => {
             <Link
               key={restaurant.info.id}
               to={"restaurent/" + restaurant.info.id}
+=======
+
+
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) return <h1>NO Internet Connection!</h1>;
+
+  if (!listOfRestaurants || listOfRestaurants.length === 0) {
+    return <Shimer />;
+  }
+
+  return (
+    <>
+      <div>
+        <div className="res-filter">
+          <div className="flex flex-col md:flex-row justify-center items-center mt-6 mb-4">
+            <input
+              className="border-2 border-black mr-0 md:mr-10 mb-2 md:mb-0 rounded-lg px-2 py-1"
+              type="text"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Search restaurants..."
+            />
+
+            <button
+              className="px-5 py-1.5 rounded-lg bg-green-100 mb-2 md:mb-0 md:ml-2"
+              onClick={() => {
+                const filtered = listOfRestaurants.filter((res) =>
+                  res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                );
+                setFilterRestaurants(filtered);
+              }}
+            >
+              Search
+            </button>
+
+            <button
+              className="filtred-btn border-2 border-green-200 ml-2 md:ml-10 px-4 py-1.5 rounded-lg"
+              onClick={() => {
+                const filtered = listOfRestaurants.filter(
+                  (res) => res.info.avgRating > 4.2
+                );
+                setFilterRestaurants(filtered);
+              }}
+            >
+              Top Rated Restaurant
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap justify-center">
+          {filteredRestaurants.map((restaurant) => (
+            <Link
+              key={restaurant.info.id}
+              to={`restaurent/${restaurant.info.id}`}
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
             >
               {restaurant.info.avgRating > 4.2 ? (
                 <RestaurantCardPromoted resData={restaurant} />
@@ -111,15 +229,23 @@ const Body = () => {
                 <RestaurantCard resData={restaurant} />
               )}
             </Link>
+<<<<<<< HEAD
           );
         })}
       </div>
     </div>
+=======
+          ))}
+        </div>
+      </div>
+    </>
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
   );
 };
 
 export default Body;
 
+<<<<<<< HEAD
 
 
 
@@ -138,6 +264,8 @@ export default Body;
 
 
 
+=======
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
 // import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 // import Shimer from "./Shimer";
 // import { useContext, useEffect, useState } from "react";
@@ -221,7 +349,11 @@ export default Body;
 //           >
 //             Top Rated Restaurant
 //           </button>
+<<<<<<< HEAD
 //           <div className="px-6"> 
+=======
+//           <div className="px-6">
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
 //             <label>UserName:  </label>
 //             <input className="border border-black px-2" type="text" value={loggedInUser} onChange={(e)=>{setUserName(e.target.value)}} />
 //           </div>
@@ -248,4 +380,8 @@ export default Body;
 //   );
 // };
 
+<<<<<<< HEAD
 // export default Body;
+=======
+// export default Body;
+>>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
