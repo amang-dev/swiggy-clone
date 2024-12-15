@@ -72,7 +72,7 @@ const Body = () => {
 
 
   const onlineStatus = useOnlineStatus();
-  if (onlineStatus === false) return <h1>NO Internet Connection!</h1>;
+  if (onlineStatus === false) return <h1 className="m-28 p-12 text-center text-3xl">NO Internet Connection!</h1>;
 
   if (!listOfRestaurants || listOfRestaurants.length === 0) {
     return <Shimer />;
@@ -82,7 +82,7 @@ const Body = () => {
     <>
       <div>
         <div className="res-filter">
-          <div className="flex flex-col md:flex-row justify-center items-center mt-6 mb-4">
+          <div className="flex flex-col md:flex-row justify-center items-center mt-24">
             <input
               className="border-2 border-black mr-0 md:mr-10 mb-2 md:mb-0 rounded-lg px-2 py-1"
               type="text"
@@ -137,6 +137,28 @@ const Body = () => {
 };
 
 export default Body;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 // import Shimer from "./Shimer";
@@ -249,3 +271,5 @@ export default Body;
 // };
 
 // export default Body;
+
+
