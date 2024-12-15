@@ -22,7 +22,7 @@ const About = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="bg-green-100 py-16 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-green-800">
+        <h1 className="text-4xl md:text-5xl font-bold text-green-800 mt-8">
           About Us
         </h1>
         <p className="mt-4 text-gray-700 text-lg">
