@@ -1,20 +1,5 @@
 import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import Shimer from "./Shimer";
-<<<<<<< HEAD
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import useOnlineStatus from "../utils/useOnlineStatus";
-// import UserContext from "../utils/UserContext";
-
-const Body = () => {
-  // const { loggedInUser, setUserName } = useContext(UserContext);
-
-  const [listOfRestaurants, setListOfRestaurants] = useState([]);
-  const [filteredRestaurants, setFilterRestaurants] = useState([]);
-
-  console.log(listOfRestaurants);
-
-=======
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -22,7 +7,6 @@ import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants, setFilterRestaurants] = useState([]);
->>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
   const [searchText, setSearchText] = useState("");
 
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
@@ -31,22 +15,6 @@ const Body = () => {
     fetchData();
   }, []);
 
-<<<<<<< HEAD
-  const fetchData = async () => {
-    try {
-      const data = await fetch(
-        'https://corsproxy.org/?' + encodeURIComponent('https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6279488&lng=77.2786205&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING')
-      );
-      const json = await data.json();
-  
-      const restaurants = json?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-  
-      if (restaurants) {
-        setListOfRestaurants(restaurants);
-        setFilterRestaurants(restaurants);
-      } else {
-        console.error("Could not find restaurants in the JSON response:", json);
-=======
   // const fetchData = async () => {
   //   try {
   //     const response = await fetch(
@@ -96,78 +64,11 @@ const Body = () => {
         }
       } else {
         throw new Error("Failed to fetch data from Swiggy API");
->>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-<<<<<<< HEAD
-  
-
-  const onlineStatus = useOnlineStatus();
-
-  if (onlineStatus === false) return <h1>NO Internet Connection!</h1>;
-
-  return !listOfRestaurants || listOfRestaurants.length === 0 ? (
-    <Shimer />
-  ) : (
-    <div>
-      <div className="res-filter">
-        <div className="flex flex-col md:flex-row justify-center items-center mt-6 mb-4">
-          <input
-            className="border-2 border-black mr-0 md:mr-10 mb-2 md:mb-0 rounded-lg"
-            type="text"
-            value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
-            placeholder="Search restaurants..."
-          />
-          <button
-            className="px-5 py-1.5 rounded-lg bg-green-100 mb-2 md:mb-0 md:ml-2"
-            onClick={() => {
-              const filterRes = listOfRestaurants.filter((res) => {
-                return res.info.name
-                  .toLowerCase()
-                  .includes(searchText.toLowerCase());
-              });
-              setFilterRestaurants(filterRes);
-            }}
-          >
-            Search
-          </button>
-          <button
-            className="filtred-btn border-2 border-green-200 ml-2 md:ml-10 px-4 py-1.4 rounded-lg"
-            onClick={() => {
-              const filterData = listOfRestaurants.filter((res) => {
-                return res.info.avgRating > 4.2;
-              });
-              setFilterRestaurants(filterData);
-            }}
-          >
-            Top Rated Restaurant
-          </button>
-        </div>
-        {/* <div className="px-6 md:px-0 md:ml-auto mt-2 md:mt-0">
-          <label>UserName:</label>
-          <input
-            className="border border-black px-2"
-            type="text"
-            value={loggedInUser}
-            onChange={(e) => {
-              setUserName(e.target.value);
-            }}
-          />
-        </div> */}
-      </div>
-      <div className="flex flex-wrap justify-center">
-        {filteredRestaurants.map((restaurant) => {
-          return (
-            <Link
-              key={restaurant.info.id}
-              to={"restaurent/" + restaurant.info.id}
-=======
 
 
   const onlineStatus = useOnlineStatus();
@@ -221,7 +122,6 @@ const Body = () => {
             <Link
               key={restaurant.info.id}
               to={`restaurent/${restaurant.info.id}`}
->>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
             >
               {restaurant.info.avgRating > 4.2 ? (
                 <RestaurantCardPromoted resData={restaurant} />
@@ -229,43 +129,15 @@ const Body = () => {
                 <RestaurantCard resData={restaurant} />
               )}
             </Link>
-<<<<<<< HEAD
-          );
-        })}
-      </div>
-    </div>
-=======
           ))}
         </div>
       </div>
     </>
->>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
   );
 };
 
 export default Body;
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
 // import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 // import Shimer from "./Shimer";
 // import { useContext, useEffect, useState } from "react";
@@ -349,11 +221,7 @@ export default Body;
 //           >
 //             Top Rated Restaurant
 //           </button>
-<<<<<<< HEAD
-//           <div className="px-6"> 
-=======
 //           <div className="px-6">
->>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
 //             <label>UserName:  </label>
 //             <input className="border border-black px-2" type="text" value={loggedInUser} onChange={(e)=>{setUserName(e.target.value)}} />
 //           </div>
@@ -380,8 +248,4 @@ export default Body;
 //   );
 // };
 
-<<<<<<< HEAD
 // export default Body;
-=======
-// export default Body;
->>>>>>> 9d60c91 (changes in upi, fixed api cors issue)

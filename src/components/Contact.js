@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-
-const Contact = () =>{
-
-    return <div>
-        <h1>This is Contact us Page</h1>
-        <h2>Aman Gupta</h2>
-    </div>
-}
-
-export default Contact;
-=======
 import React, { useState } from "react";
 
 const Contact = () => {
@@ -110,4 +98,3 @@ const Contact = () => {
 };
 
 export default Contact;
->>>>>>> 9d60c91 (changes in upi, fixed api cors issue)
