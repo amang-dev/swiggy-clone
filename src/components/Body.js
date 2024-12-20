@@ -15,60 +15,64 @@ const Body = () => {
     fetchData();
   }, []);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "https://cors-anywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6279488&lng=77.2786205&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-  //     );
-  //     const json = await response.json();
-
-  //     const restaurants =
-  //       json?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-
-  //     if (restaurants) {
-  //       setListOfRestaurants(restaurants);
-  //       setFilterRestaurants(restaurants);
-  //     } else {
-  //       console.error("Could not find restaurants in the JSON response:", json);
-
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-
   const fetchData = async () => {
     try {
       const response = await fetch(
         "https://cors-anywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6279488&lng=77.2786205&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       );
+      const json = await response.json();
 
-      if (response.ok) {
-        const json = await response.json();
-        let restaurants = null;
+      const restaurants =
+        // json?.data?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
 
-        for (let i = 0; i < json?.data?.cards?.length; i++) {
-          const card = json?.data?.cards[i]?.card?.card;
+  json?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || 
+  json?.data?.cards?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
 
-          if (card?.gridElements?.infoWithStyle?.restaurants) {
-            restaurants = card.gridElements.infoWithStyle.restaurants;
-            break; 
-          }
-        }
 
-        if (restaurants && restaurants.length > 0) {
-          setListOfRestaurants(restaurants);
-          setFilterRestaurants(restaurants);
-        } else {
-          throw new Error("No restaurants found in API response");
-        }
+      if (restaurants) {
+        setListOfRestaurants(restaurants);
+        setFilterRestaurants(restaurants);
       } else {
-        throw new Error("Failed to fetch data from Swiggy API");
+        console.error("Could not find restaurants in the JSON response:", json);
+
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://cors-anywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.6279488&lng=77.2786205&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  //     );
+
+  //     if (response.ok) {
+  //       const json = await response.json();
+  //       let restaurants = null;
+
+  //       for (let i = 0; i < json?.data?.cards?.length; i++) {
+  //         const card = json?.data?.cards[i]?.card?.card;
+
+  //         if (card?.gridElements?.infoWithStyle?.restaurants) {
+  //           restaurants = card.gridElements.infoWithStyle.restaurants;
+  //           break; 
+  //         }
+  //       }
+
+  //       if (restaurants && restaurants.length > 0) {
+  //         setListOfRestaurants(restaurants);
+  //         setFilterRestaurants(restaurants);
+  //       } else {
+  //         throw new Error("No restaurants found in API response");
+  //       }
+  //     } else {
+  //       throw new Error("Failed to fetch data from Swiggy API");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
 
   const onlineStatus = useOnlineStatus();
